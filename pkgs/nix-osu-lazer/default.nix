@@ -53,16 +53,16 @@ let
   # ppy.SDL3-CS bindings are generated against one SDL commit, and the release
   # ships exactly that build. The replacement has to be the same commit, so
   # the extraction below refuses a release that bundles anything else.
-  sdlRevision = "SDL-3.5.0-a8591d9";
+  sdlRevision = "SDL-3.5.0-ea7a2da";
 
   sdl3-patched = sdl3.overrideAttrs (old: {
-    version = "3.5.0-unstable-2026-07-20";
+    version = "3.5.0-unstable-2026-10-01";
 
     src = fetchFromGitHub {
       owner = "libsdl-org";
       repo = "SDL";
-      rev = "a8591d943b7079b17fdd018dc04ec9c71dc94ae4";
-      hash = "sha256-bPx7bsdEMl6bMiwZ8QIi4P5YxAjevTci/A+9wx/Ej/g=";
+      rev = "ea7a2dabfd1ab6b0a5720568ffd207f5825e47f1";
+      hash = "sha256-FiaYNUUWIyQjgvFhC0tWiEDgV9Ih2Kw6e2l9bHUucWY=";
     };
 
     patches = (old.patches or [ ]) ++ [
@@ -182,11 +182,6 @@ appimageTools.wrapAppImage {
   inherit pname version contents;
 
   extraPkgs = pkgs: with pkgs; [ icu ];
-
-  # fix OpenGL renderer on nvidia + wayland
-  extraBwrapArgs = [
-    "--ro-bind-try /etc/egl/egl_external_platform.d /etc/egl/egl_external_platform.d"
-  ];
 
   extraInstallCommands = ''
     . ${makeWrapper}/nix-support/setup-hook
