@@ -2,8 +2,8 @@
   lib,
   appimageTools,
   fetchFromGitHub,
+  fetchurl,
   makeWrapper,
-  osu-lazer-bin,
   sdl3,
   wayland-protocols,
   writeShellApplication,
@@ -48,7 +48,12 @@
 
 let
   pname = "nix-osu-lazer";
-  inherit (osu-lazer-bin) version src;
+  version = "2026.1115.0";
+
+  src = fetchurl {
+    url = "https://github.com/ppy/osu/releases/download/${version}-lazer/osu.AppImage";
+    hash = "sha256-ROqHd7gjAHqg7bibdOF/V7BpiomsAXdH9ysBE1Me754=";
+  };
 
   # ppy.SDL3-CS bindings are generated against one SDL commit, and the release
   # ships exactly that build. The replacement has to be the same commit, so
@@ -213,9 +218,17 @@ appimageTools.wrapAppImage {
       ;
   };
 
-  meta = osu-lazer-bin.meta // {
+  meta = {
     description = "osu!lazer official AppImage with declarative settings, beatmaps and skins, presenting on Wayland as a tearing game surface";
     platforms = [ "x86_64-linux" ];
     mainProgram = "osu!";
+    homepage = "https://osu.ppy.sh";
+    changelog = "https://osu.ppy.sh/home/changelog/lazer/${version}";
+    license = with lib.licenses; [
+      mit
+      cc-by-nc-40
+      unfreeRedistributable
+    ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }

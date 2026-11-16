@@ -75,7 +75,7 @@ nix run github:gaavin/nix-osu-lazer
 }
 ```
 
-The package builds against your own nixpkgs, so the AppImage version follows your `osu-lazer-bin`. Like `osu-lazer-bin`, it needs `nixpkgs.config.allowUnfree = true` (BASS). The overlay is optional for the module, which builds the package from your `pkgs` either way.
+The package builds against your own nixpkgs, but pins its own osu! release rather than following `osu-lazer-bin`. It needs `nixpkgs.config.allowUnfree = true` (BASS). The overlay is optional for the module, which builds the package from your `pkgs` either way.
 
 ### 2. Enable it
 
@@ -208,7 +208,7 @@ Expect `set_content_type(3)` (game) and `set_presentation_hint(1)` (async).
 
 ## Updating
 
-When nixpkgs moves `osu-lazer-bin` to a release that bundles a different SDL commit, the build stops and prints the commit the new AppImage carries. Point `sdlRevision` and the SDL `src` in `pkgs/nix-osu-lazer/default.nix` at it, and rebase the patch if it no longer applies.
+To move to a new osu! release, bump `version` and the AppImage `hash` in `pkgs/nix-osu-lazer/default.nix`. If the release bundles a different SDL commit, the build stops and prints the commit the new AppImage carries. Point `sdlRevision` and the SDL `src` in `pkgs/nix-osu-lazer/default.nix` at it, and rebase the patch if it no longer applies.
 
 A new release can also add settings or change their defaults. Refresh `factory-game.ini` and `factory-framework.ini` from a fresh data directory so `--export-settings` stays accurate.
 

@@ -31,8 +31,8 @@
         meta.description = "Launch osu!lazer";
       };
 
-      # Built from the consumer's package set rather than this flake's, so the
-      # AppImage and SDL track whatever osu-lazer-bin the system already has.
+      # Built from the consumer's package set rather than this flake's; the
+      # AppImage release and SDL commit are pinned in pkgs/nix-osu-lazer.
       overlays.default = final: _prev: {
         nix-osu-lazer = final.callPackage ./pkgs/nix-osu-lazer { };
       };
