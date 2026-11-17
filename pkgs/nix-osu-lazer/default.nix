@@ -48,11 +48,11 @@
 
 let
   pname = "nix-osu-lazer";
-  version = "2026.1115.0";
+  version = "2026.1117.0";
 
   src = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}-lazer/osu.AppImage";
-    hash = "sha256-ROqHd7gjAHqg7bibdOF/V7BpiomsAXdH9ysBE1Me754=";
+    hash = "sha256-TrvLW1gcA28WeFUAr1yNE60ebZMZb9Nr6PJFwqDqHS0=";
   };
 
   # ppy.SDL3-CS bindings are generated against one SDL commit, and the release
